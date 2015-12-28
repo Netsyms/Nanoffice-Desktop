@@ -344,8 +344,8 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
     public static final String CMD_DEBUG_CURRENT_TAGS = "whattags";
 
     // Menu & Tool Key Arrays
-    private static Hashtable<String, JMenu> htMenus = new Hashtable<String, JMenu>();
-    private static Hashtable<String, JComponent> htTools = new Hashtable<String, JComponent>();
+    private static Hashtable<String, JMenu> htMenus = new Hashtable<>();
+    private static Hashtable<String, JComponent> htTools = new Hashtable<>();
 
     private final String appName = "Nanoffice";
     private final String menuDialog = "..."; /* text to append to a MenuItem label when menu item opens a dialog */
@@ -671,6 +671,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
          jMenuFile.add(jmiSaveB64);*/
         jMenuFile.addSeparator();
         JMenuItem jmiPrint = new JMenuItem(Translatrix.getTranslationString("Print"));
+        if (showMenuIcons) {
+            jmiPrint.setIcon(getEkitIcon("Print"));
+        }
         jmiPrint.setActionCommand(CMD_DOC_PRINT);
         jmiPrint.addActionListener(this);
         jMenuFile.add(jmiPrint);
@@ -685,6 +688,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
          jMenuFile.add(jmiSerialIn);
          jMenuFile.addSeparator();*/
         JMenuItem jmiExit = new JMenuItem(Translatrix.getTranslationString("Exit"));
+        if (showMenuIcons) {
+            jmiExit.setIcon(getEkitIcon("Exit"));
+        }
         jmiExit.setActionCommand(CMD_EXIT);
         jmiExit.addActionListener(this);
         jMenuFile.add(jmiExit);
@@ -829,6 +835,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
             }
         }
         jcbmiViewSource = new JCheckBoxMenuItem(Translatrix.getTranslationString("ViewSource"), false);
+        if (showMenuIcons) {
+            jcbmiViewSource.setIcon(getEkitIcon("Source"));
+        }
         jcbmiViewSource.setActionCommand(CMD_TOGGLE_SOURCE_VIEW);
         jcbmiViewSource.addActionListener(this);
         jMenuView.add(jcbmiViewSource);
@@ -905,6 +914,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
         jMenuFont.add(jMenuFontSub);
         jMenuFont.addSeparator();
         JMenu jMenuFontColor = new JMenu(Translatrix.getTranslationString("Color"));
+        if (showMenuIcons) {
+            jMenuFontColor.setIcon(getEkitIcon("Color"));
+        }
         Hashtable<String, String> customAttr = new Hashtable<String, String>();
         customAttr.put("color", "black");
         jMenuFontColor.add(new JMenuItem(new CustomAction(this, Translatrix.getTranslationString("CustomColor") + menuDialog, HTML.Tag.FONT, customAttr)));
@@ -1155,6 +1167,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
             jMenuTools = new JMenu(Translatrix.getTranslationString("Tools"));
             htMenus.put(KEY_MENU_TOOLS, jMenuTools);
             JMenuItem jmiSpellcheck = new JMenuItem(Translatrix.getTranslationString("ToolSpellcheck"));
+            if (showMenuIcons) {
+                jmiSpellcheck.setIcon(getEkitIcon("Spellcheck"));
+            }
             jmiSpellcheck.setActionCommand(CMD_SPELLCHECK);
             jmiSpellcheck.addActionListener(this);
             jMenuTools.add(jmiSpellcheck);
@@ -1192,6 +1207,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
         jMenuHelp = new JMenu(Translatrix.getTranslationString("Help"));
         htMenus.put(KEY_MENU_HELP, jMenuHelp);
         JMenuItem jmiAbout = new JMenuItem(Translatrix.getTranslationString("About"));
+        if (showMenuIcons) {
+            jmiAbout.setIcon(getEkitIcon("Help"));
+        }
         jmiAbout.setActionCommand(CMD_HELP_ABOUT);
         jmiAbout.addActionListener(this);
         jMenuHelp.add(jmiAbout);
@@ -1518,6 +1536,8 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
         } else {
             jspltDisplay.setBottomComponent(null);
         }
+
+        jspltDisplay.setDividerSize(0);
 
         iSplitPos = jspltDisplay.getDividerLocation();
 
